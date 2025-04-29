@@ -1,0 +1,16 @@
+# IDE settings
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+
+# Database files
+*.sqlite3
+
+# Byte-compiled Python files
+__pycache__/
+*.pyc
+
+# Media Folder
+media
