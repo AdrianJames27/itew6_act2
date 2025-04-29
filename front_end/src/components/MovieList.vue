@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-start align-content-center gap-3">
+    <div class="d-flex flex-wrap justify-content-start align-content-center gap-3">
         <MovieCard
             v-for="movie in movies"
             :key="movie.id"
@@ -20,7 +20,3 @@ defineProps({
     }
 });
 </script>
-
-<style scoped>
-
-</style>

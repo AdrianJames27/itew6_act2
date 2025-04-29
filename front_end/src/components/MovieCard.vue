@@ -10,8 +10,8 @@
                 <p class="m-0">Rating: {{ movie.rating }}</p>
             </div>
             <div class="d-flex justify-content-start gap-2">
-                <button class="btn btn-primary" @click="$emit('edit', movie)">Edit</button>
-                <button class="btn btn-danger" @click="$emit('delete', movie.id)">Delete</button>
+                <button class="btn btn-primary" @click="$emit('edit')">Edit</button>
+                <button class="btn btn-danger" @click="$emit('delete')">Delete</button>
             </div>
         </div>
     </div>
@@ -25,16 +25,24 @@ defineProps({
     }
 });
 </script>
+
 <style scoped>
-.movie-card {
-    width: 100%; /* Ensures flexibility across screen sizes */
-    max-width: 18rem; /* Prevents excessive width */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body,
+.card-title,
+.card-text {
+    flex-grow: 1;
 }
 
 .img-uniform {
-    width: 100%; /* Ensures the image fills the container */
-    height: 250px; /* Set a fixed height for consistency */
-    object-fit: cover; /* Crops and maintains aspect ratio */
-    border-radius: 5px; /* Optional for styling */
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 </style>

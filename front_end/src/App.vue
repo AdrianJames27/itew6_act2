@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div class="container">
     <h1 class="my-4 text-center">Movie Collection</h1>
 
     <!-- Add Movie Button -->
@@ -14,9 +14,11 @@
     <MovieList :movies="filteredMovies" @edit="editMovie" @delete="deleteMovie" />
 
     <!-- Modal -->
-    <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog"
-      :style="{ display: showModal ? 'block' : 'none' }" aria-modal="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade show" :class="{ show: showModal }" 
+      :style="{ display: showModal ? 'block' : 'none' }"
+      tabindex="-1" aria-label="Modal"
+    >
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ isEditing ? 'Edit Movie' : 'Add Movie' }}</h5>
@@ -34,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-backdrop fade" :class="{ show: showModal }" v-if="showModal"></div>
+    <div v-if="showModal" class="modal-backdrop fade" :class="{ show: showModal }"></div>
   </div>
 </template>
 
@@ -63,10 +65,13 @@ const showModal = ref(false);
 
 // Computed
 const filteredMovies = computed(() => {
-  if (!searchQuery.value) return movies.value
-  const q = searchQuery.value.toLowerCase()
-  return movies.value.filter(m => m.title.toLowerCase().includes(q) || m.genre.toLowerCase().includes(q))
+  if (!searchQuery.value) return movies.value;
+
+  const q = searchQuery.value.toLowerCase();
+
+  return movies.value.filter(m => m.title.toLowerCase().includes(q) || m.genre.toLowerCase().includes(q));
 });
+
 const isEditing = computed(() => editId.value !== null);
 
 // API
@@ -83,14 +88,21 @@ const fetchMovies = async () => {
 }
 
 // Handlers
-const handleSearch = q => (searchQuery.value = q)
-const openModal = () => { resetForm(); showModal.value = true }
+const handleSearch = query => searchQuery.value = query
+
+const openModal = () => { 
+  resetForm(); 
+  showModal.value = true;
+}
+
 const editMovie = movie => { 
   form.value = {...movie}; 
   editId.value = movie.id; 
   showModal.value = true;
 }
-const closeModal = () => (showModal.value = false)
+
+const closeModal = () => showModal.value = false
+
 const resetForm = () => {
   form.value = { 
     title: '', 
@@ -100,6 +112,7 @@ const resetForm = () => {
     rating: '', 
     poster: null 
   };
+
   formErrors.value = {};
   editId.value = null;
 }
@@ -182,7 +195,3 @@ const deleteMovie = async (id) => {
 
 onMounted(fetchMovies);
 </script>
-
-<style scopred>
-/* Optional minimal styling */
-</style>

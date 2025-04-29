@@ -59,9 +59,18 @@
 import { reactive, watch, ref } from 'vue';
 
 const props = defineProps({
-    form: { type: Object, required: true },
-    isEditing: { type: Boolean, required: true },
-    errors: { type: Object, required: true }
+    form: { 
+        type: Object, 
+        required: true 
+    },
+    isEditing: { 
+        type: Boolean, 
+        required: true 
+    },
+    errors: { 
+        type: Object, 
+        required: true 
+    }
 });
 
 const emit = defineEmits(['submit', 'reset']);
@@ -70,28 +79,22 @@ const localForm = reactive({ ...props.form });
 const posterInput = ref(null);
 
 watch(
-    () => props.form,
-    newForm => {
-        Object.assign(localForm, newForm);
-    },
-    { deep: true, immediate: true }
+    () => props.form, 
+    (newVal) => Object.assign(localForm, newVal), 
+    { deep: true }
 );
 
 function handleSubmit() {
-    emit('submit', { ...localForm })
-};
+    emit('submit', { ...localForm });
+}
 
 function handleFileChange(e) {
     const f = e.target.files[0];
-    if (f) localForm.poster = f
-};
+    if (f) localForm.poster = f;
+}
 
 function resetLocalForm() {
-    emit('reset')
-    if (posterInput.value) posterInput.value.value = ''
-};
+    emit('reset');
+    if (posterInput.value) posterInput.value.value = '';
+}
 </script>
-
-<style scoped>
-/* Optional additional styling */
-</style>
